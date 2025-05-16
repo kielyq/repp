@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Dom\Attr;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReportsController extends Controller
 {
+    public function index(){
+        $reports = Report::where('user_id', Auth::user()->id)->get();
+        return view('dashboard', compact('reports'));
+    }
    public function create(): View
     {
         // Проверяем, отправил ли пользователь уже работу
